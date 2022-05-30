@@ -13,6 +13,19 @@ const connect = async () => {
         throw error
     }
 };
+
+mongoose.connection.on("disconnected", ()=>{
+    console.log("mondoDB disconnected!")
+})
+
+mongoose.connection.on("connected", ()=>{
+    console.log("mondoDB connected!")
+})
+
+app.get("/users", (req,res)=>{
+    res.send("hello first request!")
+})
+
 app.listen(8800, ()=>{
     connect()
     console.log("Connected to backend.")
