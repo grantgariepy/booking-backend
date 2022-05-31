@@ -6,6 +6,7 @@ import usersRoute  from "./routes/users.js"
 import hotelsRoute  from "./routes/hotels.js"
 import roomsRoute  from "./routes/rooms.js"
 import cookieParser from "cookie-parser";
+import cors from "cors"
 
 const app = express();
 dotenv.config()
@@ -24,6 +25,12 @@ mongoose.connection.on("disconnected", ()=>{
 })
 
 //middlewares
+app.use((req, res,next)=>{ 
+    res.setHeader('Access-control-Allow-Origin', '*'); 
+    res.setHeader('Access-control-Allow-Methods', 'GET, POST,PUT,PATCH,DELETE'); 
+    res.setHeader('Access-control-Allow-Headers', 'Content-type, Authorization'); 
+    next();
+});
 app.use(cookieParser());
 
 app.use(express.json());
